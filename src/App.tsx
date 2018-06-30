@@ -1,14 +1,24 @@
+
 import * as React from 'react';
-import './App.css';
+import { Provider } from 'react-redux'
+import { TodoFooter } from './components/TodoFooter';
+import TodoBody from './connectors/todoBodyConnector';
+// import { TodoHeader } from './components/TodoHeader';
+import TodoHeader from './connectors/todoHeaderConnector';
+
+import app from './models/app';
+
 
 class App extends React.Component {
   public render() {
     return (
-      <div>
-        <header className="header">
-          <h1>todos</h1>
-        </header>
-      </div>
+      <Provider store={app.getStore()}>
+        <div>
+          <TodoHeader/>
+          <TodoBody/>
+          <TodoFooter/>
+        </div>
+      </Provider>
     );
   }
 }
