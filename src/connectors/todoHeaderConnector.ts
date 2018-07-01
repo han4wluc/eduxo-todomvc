@@ -8,7 +8,7 @@ export default eduxoConnect<IStateProps,IActionProps>((state)=>{
         textValue: state.todo.textValue
     }
 }, {
-    onChangeText: app.dispatchers.todo.onChangeTextValue,
-    onPressEnter: app.dispatchers.todo.addTodo,
-    onPressExit: app.dispatchers.todo.clearInput,
+    onChangeText: app.getDispatcher().todo.onChangeTextValue,
+    onPressEnter: app.getDispatcher().todo.addTodo,
+    onPressExit: app.getDispatcher().todo.clearInput,
 })(TodoHeader) as any;

@@ -1,33 +1,49 @@
 
+import * as classNames from 'classnames';
 import * as React from 'react';
 
-class TodoFooter extends React.Component<any, any> {
+export interface IStateProps {
+  numberTodosLeft: number,
+  showClearCompletedButton: boolean,
+  displayMode: 'all' | 'active' | 'completed',
+}
+
+// tslint:disable-next-line
+export interface IActionProps {
+  onPressClearCompleted: () => void;
+}
+
+export type IProps = IStateProps & IActionProps;
+
+
+class TodoFooter extends React.Component<IProps> {
 
   public render() {
-    // var activeTodoWord = Utils.pluralize(this.props.count, 'item');
-    // var clearButton = null;
+    const { numberTodosLeft, showClearCompletedButton, displayMode, onPressClearCompleted } = this.props;
 
-    // if (this.props.completedCount > 0) {
-    //   clearButton = (
-    //     <button
-    //       className="clear-completed"
-    //       onClick={this.props.onClearCompleted}>
-    //       Clear completed
-    //     </button>
-    //   );
+    // var activeTodoWord = Utils.pluralize(this.props.count, 'item');
+    // let clearButton = null;
+
+    // if (numberCompleted > 0) {
+     const clearButton = (
+        <button
+          className="clear-completed"
+          onClick={onPressClearCompleted}>
+          Clear completed
+        </button>
+      );
     // }
 
-    // const nowShowing = this.props.nowShowing;
     return (
       <footer className="footer">
         <span className="todo-count">
-          <strong>{this.props.count}</strong> {'activeTodoWord'} left
+          <strong>{numberTodosLeft}</strong> items left
         </span>
         <ul className="filters">
           <li>
             <a
               href="#/"
-            //   className={classNames({selected: nowShowing === ALL_TODOS})}
+              className={classNames({selected: displayMode === 'all'})}
               >
                 All
             </a>
@@ -36,7 +52,7 @@ class TodoFooter extends React.Component<any, any> {
           <li>
             <a
               href="#/active"
-            //   className={classNames({selected: nowShowing === ACTIVE_TODOS})}
+              className={classNames({selected: displayMode === 'active'})}
               >
                 Active
             </a>
@@ -45,13 +61,13 @@ class TodoFooter extends React.Component<any, any> {
           <li>
             <a
               href="#/completed"
-            //   className={classNames({selected: nowShowing === COMPLETED_TODOS})}
+              className={classNames({selected: displayMode === 'completed'})}
               >
                 Completed
             </a>
           </li>
         </ul>
-        {/* {clearButton} */}
+        {showClearCompletedButton && clearButton}
       </footer>
     );
   }
